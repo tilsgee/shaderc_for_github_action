@@ -76,6 +76,7 @@ if (NOT TARGET SPIRV-Tools)
       endif()
     endif()
   endif()
+endif()
 
 if(NOT SPIRV_TOOLS_FOUND)
   if(DEFINED SPIRV_TOOLS_ROOT)
