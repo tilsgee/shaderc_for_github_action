@@ -76,17 +76,20 @@ if (NOT TARGET SPIRV-Tools)
       endif()
     endif()
   endif()
-if (NOT SPIRV-TOOLS_FOUND)
-  if (DEFINED SPIRV_TOOLS_ROOT)
+
+if(NOT SPIRV_TOOLS_FOUND)
+  if(DEFINED SPIRV_TOOLS_ROOT)
     message(STATUS "Forcing search for SPIRV-Tools in ${SPIRV_TOOLS_ROOT}")
-    # Prepend the forced directory to CMAKE_PREFIX_PATH so that find_package searches there.
+    # Append the provided directory to CMAKE_PREFIX_PATH so that find_package can locate it.
     list(APPEND CMAKE_PREFIX_PATH "${SPIRV_TOOLS_ROOT}")
-    find_package(SPIRV-Tools REQUIRED)
+    # Use a package name without a dash. (Make sure your Find module is adapted accordingly.)
+    find_package(SPIRVTools REQUIRED)
   endif()
-  if (NOT SPIRV-TOOLS_FOUND)
+  if(NOT SPIRV_TOOLS_FOUND)
     message(FATAL_ERROR "SPIRV-Tools was not found - required for compilation")
   endif()
 endif()
+
 
 if (NOT TARGET glslang)
   if (IS_DIRECTORY ${SHADERC_GLSLANG_DIR})
